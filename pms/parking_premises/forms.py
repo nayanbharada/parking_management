@@ -6,7 +6,12 @@ class CreatePremiseForm(forms.ModelForm):
     class Meta:
         model = Premises
 
-        fields = ["premise_name", "address", "authorized_person_name", "authorized_person_contact"]
+        fields = [
+            "premise_name",
+            "address",
+            "authorized_person_name",
+            "authorized_person_contact",
+        ]
         widgets = {
             "premise_name": forms.TextInput(
                 attrs={
@@ -68,5 +73,3 @@ class CreateSlotForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CreateSlotForm, self).__init__(*args, **kwargs)
         self.fields["premise_slot"].queryset = Premises.objects.all()
-
-
