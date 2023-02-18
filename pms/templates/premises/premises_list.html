@@ -1,0 +1,57 @@
+{% extends "common/base.html" %}
+{% block content %}
+     {% include 'common/messaging.html' %}
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">All Premises</h3>
+        <a href="{% url 'parking_premises:premises_create' %}" class="btn btn-primary" style="float: right;">
+            <span class="badge bg-primary">Add Premises</span>
+        </a>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Premises Name</th>
+                <th>Address</th>
+                <th>Authorized Person Name</th>
+                <th>Authorized Person Contact</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for premises_obj in all_premises %}
+            <tr>
+                <td>{{ premises_obj.premise_name }}</td>
+                <td>{{ premises_obj.address }}</td>
+                <td>{{ premises_obj.authorized_person_name }}</td>
+                <td>{{ premises_obj.authorized_person_contact }}</td>
+                <td>{{ premises_obj.get_status_display }}</td>
+                <td>
+                    <a href="{% url 'parking_premises:premises_delete' premises_obj.id %}">
+                        <span class="badge bg-danger">Delete</span>
+                    </a>
+<!--                    <span class="badge bg-success">Edit</span>-->
+<!--                    <span class="badge bg-warning">Add slot</span>-->
+                </td>
+            </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer clearfix">
+        {% include "common/pegination.html" %}
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+    $(document).ready(function() {
+
+    });
+</script>
+{% endblock%}

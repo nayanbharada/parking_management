@@ -34,3 +34,11 @@
 <script src="{% static 'dist/js/demo.js' %}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{% static 'dist/js/pages/dashboard.js' %}"></script>
+
+<script>
+setTimeout(function(){
+  if ($('#msg').length > 0) {
+    $('#msg').remove();
+  }
+}, 2000)
+</script>

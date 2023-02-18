@@ -1,0 +1,56 @@
+{% extends "common/base.html" %}
+{% block content %}
+{% include 'common/messaging.html' %}
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">All Slots</h3>
+        <a href="{% url 'parking_premises:slot_create' %}" class="btn btn-primary" style="float: right;">
+            <span class="badge bg-primary">Add Slot</span>
+        </a>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Premises Name</th>
+                <th>Vehicle Type</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for slot_obj in all_slots %}
+            <tr>
+                <td>{{ slot_obj.premise_slot.premise_name }}</td>
+                <td>{{ slot_obj.get_vehicle_type_display }}</td>
+                <td>{{ slot_obj.price }}</td>
+                <td>{{ slot_obj.get_status_display }}</td>
+                <td>
+                    <a href="{% url 'parking_premises:slot_delete' slot_obj.id %}">
+                        <span class="badge bg-danger">Delete</span>
+                    </a>
+                    <!--                    <span class="badge bg-success">Edit</span>-->
+                    <!--                    <span class="badge bg-warning">Add slot</span>-->
+                </td>
+            </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer clearfix">
+        {% include "common/pegination.html" %}
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+    $(document).ready(function() {
+
+    });
+
+</script>
+{% endblock%}

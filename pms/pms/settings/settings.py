@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'parking_premises',
     #Third party packages
     'django_extensions',
 ]

@@ -1,0 +1,44 @@
+{% extends "common/base.html" %}
+{% block content %}
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">Premises Form</h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    <form method="post">
+        {% csrf_token %}
+        <div class="card-body">
+            <div class="form-group">
+                <label>Premises Name</label>
+                {{ form.premise_name }}
+            </div>
+             <div class="form-group">
+                <label>Address</label>
+                {{ form.address }}
+            </div>
+            <div class="form-group">
+                <label>Authorized Person Name</label>
+                {{ form.authorized_person_name }}
+            </div>
+            <div class="form-group">
+                <label>Authorized Person Contact</label>
+                {{ form.authorized_person_contact }}
+            </div>
+        </div>
+        <!-- /.card-body -->
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+    $(document).ready(function() {
+
+    });
+
+</script>
+{% endblock%}

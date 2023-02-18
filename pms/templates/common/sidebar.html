@@ -2,28 +2,59 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="{% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">PMS</span>
+        <img src="{% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTE Logo"
+             class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">PMS</span>
     </a>
     <!-- Sidebar -->
     <div class="sidebar">
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                {% if request.user.user_type == "admin" %}
+                    <li class="nav-item">
+                        <a href="{% url 'parking_premises:premises_list' %}" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Manage Premises
+                                <!--                <span class="right badge badge-danger">New</span>-->
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'parking_premises:slot_list' %}" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Manage Slots
+                                <!--                <span class="right badge badge-danger">New</span>-->
+                            </p>
+                        </a>
+                    </li>
+                {% else %}
+                     <li class="nav-item">
+                        <a href="{% url 'parking_premises:all_slots' %}" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Parking Slots
+                                <!--                <span class="right badge badge-danger">New</span>-->
+                            </p>
+                        </a>
+                    </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a href="{% url 'users:logout' %}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Logout
+                            <!--                <span class="right badge badge-danger">New</span>-->
+                        </p>
+                    </a>
+                </li>
 
-          <li class="nav-item">
-            <a href="{% url 'users:logout' %}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Logout
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
 
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
-  </aside>
+</aside>

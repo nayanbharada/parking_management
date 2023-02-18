@@ -1,0 +1,95 @@
+{% extends "common/base.html" %}
+{% block content %}
+{% include 'common/messaging.html' %}
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">All Slots</h3>
+
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <form>
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Vehicle Type:</label>
+                    <select class="form-control" name="car_type">
+                        <option value="car">Car</option>
+                        <option value="two_wheeler">Two Wheeler</option>
+                        <option value="three_wheeler">Three Wheeler</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label>Start Date and time:</label>
+                     <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
+                        <input type="text" required  name="start_date" class="form-control datetimepicker-input" data-target="#reservationdatetime"/>
+                        <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label>End Date and time:</label>
+                     <div class="input-group date" id="reservationdatetime_end" data-target-input="nearest">
+                        <input type="text" required name="end_date" class="form-control datetimepicker-input" data-target="#reservationdatetime_end"/>
+                        <div class="input-group-append" data-target="#reservationdatetime_end" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="col-md-3">
+                     <label></label>
+                     <button type="submit" class="btn btn-primary">Search</button>
+                 </div>
+            </div>
+
+        </form>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Premises Name</th>
+                <th>Vehicle Type</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for slot_obj in all_slots %}
+            <tr>
+                <td>{{ slot_obj.premise_slot.premise_name }}</td>
+                <td>{{ slot_obj.get_vehicle_type_display }}</td>
+                <td>{{ slot_obj.price }}</td>
+                <td>
+                    <form action="{% url 'parking_premises:book_parking_slot' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="book_start_date" value="{{ start_date }}">
+                        <input type="hidden" name="book_end_date" value="{{ end_date }}">
+                        <input type="hidden" name="slot_id" value="{{ slot_obj.id }}">
+                         <button type="submit" class="btn btn-danger">Book</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer clearfix">
+        {% include "common/pegination.html" %}
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+    $(document).ready(function() {
+        var word = document.getElementById("reservationdatetime").value;
+        console.log(word);
+        console.log("nayan");
+
+    });
+console.log("ddd");
+    $('#reservationdatetime').datetimepicker({ format: 'DD/MM/YYYY HH:mm', icons: { time: 'far fa-clock' } });
+    $('#reservationdatetime_end').datetimepicker({ format: 'DD/MM/YYYY HH:mm', icons: { time: 'far fa-clock' } });
+
+</script>
+{% endblock%}
