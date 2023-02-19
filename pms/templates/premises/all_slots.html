@@ -43,6 +43,7 @@
             </div>
 
         </form>
+        {% if all_slots%}
         <table class="table table-bordered">
             <thead>
             <tr>
@@ -53,25 +54,28 @@
             </tr>
             </thead>
             <tbody>
-            {% for slot_obj in all_slots %}
-            <tr>
-                <td>{{ slot_obj.premise_slot.premise_name }}</td>
-                <td>{{ slot_obj.get_vehicle_type_display }}</td>
-                <td>{{ slot_obj.price }}</td>
-                <td>
-                    <form action="{% url 'parking_premises:book_parking_slot' %}" method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name="book_start_date" value="{{ start_date }}">
-                        <input type="hidden" name="book_end_date" value="{{ end_date }}">
-                        <input type="hidden" name="slot_id" value="{{ slot_obj.id }}">
-                         <button type="submit" class="btn btn-danger">Book</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
 
+                {% for slot_obj in all_slots %}
+                <tr>
+                    <td>{{ slot_obj.premise_slot.premise_name }}</td>
+                    <td>{{ slot_obj.get_vehicle_type_display }}</td>
+                    <td>{{ slot_obj.price }}</td>
+                    <td>
+                        <form action="{% url 'parking_premises:book_parking_slot' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="book_start_date" value="{{ start_date }}">
+                            <input type="hidden" name="book_end_date" value="{{ end_date }}">
+                            <input type="hidden" name="slot_id" value="{{ slot_obj.id }}">
+                             <button type="submit" class="btn btn-danger">Book</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
+         {% else %}
+<!--           Please fill the search data.-->
+          {% endif %}
     </div>
     <!-- /.card-body -->
     <div class="card-footer clearfix">

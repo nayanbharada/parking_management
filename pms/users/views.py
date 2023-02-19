@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import *
+
+from parking_premises.models import Premises, Slot
 from users.forms import LoginForm, CreateUserForm
 from django.contrib.auth import authenticate, logout, login
 from users.mixin import CustomActiveLoginRequiredMixin
@@ -74,6 +76,11 @@ class UserDashboard(CustomActiveLoginRequiredMixin, TemplateView):
 class AdminDashboard(CustomActiveLoginRequiredMixin, TemplateView):
     template_name = "dashboards/admin_dashboard.html"
 
+    def get_context_data(self, **kwargs):
+        context = super(AdminDashboard, self).get_context_data()
+        context["premises_count"] = Premises.objects.filter(premise_user=self.request.user).count()
+        context["slot_count"] = Slot.objects.filter(premise_slot__premise_user=self.request.user).count()
+        return context
 
-class AboutUs(TemplateView):
-    template_name = "common/base.html"
+
+

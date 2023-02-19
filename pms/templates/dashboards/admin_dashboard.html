@@ -1,6 +1,36 @@
 {% extends "common/base.html" %}
 {% block content %}
-dmmdm
+<div class="row">
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-info">
+          <div class="inner">
+            <h3>{{ premises_count }}</h3>
+
+            <p>Premises Count</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-bag"></i>
+          </div>
+
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-success">
+          <div class="inner">
+            <h3>{{ slot_count }}</h3>
+
+            <p>Slot Count</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-stats-bars"></i>
+          </div>
+        </div>
+      </div>
+      <!-- ./col -->
+    </div>
 {% endblock %}
 {% block extra_js %}
 <script>
